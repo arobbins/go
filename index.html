@@ -121,10 +121,12 @@
                     // console.log("Email: " + newPost.email);
                 });
 
-                // $loginForm.on('submit', function(e){
-                //     e.preventDefault();
+                $loginForm.validate({
+                    debug: true,
+                    submitHandler: function(form) {
 
-                // });
+                    }
+                });
 
                 USERS.on('child_added', function(snapshot){
                     var user = snapshot.val();
