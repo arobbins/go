@@ -1,0 +1,15 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Andrew Robbins -- Web Developer -- @andrewmrobbins
+
+# THANKS
+
+    <name>
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3, JS
+    Socket.io, Angular JS, Express, HTML5 Canvas
