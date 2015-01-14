@@ -11,6 +11,7 @@
   "license": "MIT",
   "devDependencies": {
     "express": "~4.10.7",
-    "socket.io": "~1.2.1"
+    "socket.io": "~1.2.1",
+    "flightplan": "~0.5.5"
   }
 }
