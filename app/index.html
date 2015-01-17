@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Go - An ancient game with a modern flavor</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <style type="text/css">
+            .form input {
+                display: block;
+                margin-bottom: 1em;
+            }
+            .form-login,
+            .form-register {
+                margin: 3em 0;
+            }
+        </style>
+
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+
+        <form class="form form-register">
+            <h1>Need an account?</h1>
+            <p class="form-error"></p>
+            <input class="form-username" name="username" type="text" placeholder="Username" required>
+            <input class="form-password" name="password" type="password" placeholder="Password" type="password" required>
+            <input class="form-password-confirm" name="password-confirm" type="password" placeholder="Confirm Password" type="password" required>
+            <input class="form-email" name="email" type="email" placeholder="Email address" required>
+            <button class="form-submit" type="submit">Sign up</button>
+        </form>
+
+        <form class="form form-login">
+            <h1>Login</h1>
+            <p class="form-error"></p>
+            <input class="form-email-login" type="email" placeholder="Email" name="email" required>
+            <input class="form-password-login" type="password" placeholder="Password" name="password" required>
+            <button class="form-submit" type="submit">Enter</button>
+        </form>
+
+        <form class="chat">
+            <section class="chat-messages"></section>
+            <input class="chat-input" type="text">
+            <button class="chat-submit" type="submit">Send</button>
+        </form>
+
+        <script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src='http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js'></script>
+
+        <!--<script src='dist/js/app.js'></script>-->
+
+        <script src='js/test.js'></script>
+
+    </body>
+</html>

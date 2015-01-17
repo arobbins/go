@@ -9,9 +9,15 @@
   },
   "author": "Andrew Robbins @andrewmrobbins",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "express": "~4.10.7",
     "socket.io": "~1.2.1",
-    "flightplan": "~0.5.5"
+    "firebase-token-generator": "~2.0.0",
+    "underscore": "~1.7.0",
+    "flightplan": "~0.5.5",
+    "gulp": "~3.8.10",
+    "browserify": "~8.1.1",
+    "vinyl-source-stream": "~1.0.0",
+    "gulp-express": "~0.1.4"
   }
 }
