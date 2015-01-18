@@ -1,5 +1,12 @@
-var sayHi = function sayHi(message){
-	alert(message);
+var multiply = function multiply(num1, num2) {
+	console.log(num1 * num2);
 }
 
-module.exports = sayHi;
+var add = function add(num1, num2) {
+	console.log(num1 + num2);
+}
+
+module.exports = {
+	multiply: multiply,
+	add: add
+}

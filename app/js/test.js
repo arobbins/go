@@ -1,3 +1,6 @@
-var sayHi = require('modules');
+var math = require('./modules');
 
-sayHi('Hello!');
+math.add(10, 10);
+math.multiply(10, 10);
+
+alert('yo');

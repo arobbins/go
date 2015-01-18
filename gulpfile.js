@@ -1,36 +1,17 @@
-var gulp = require('gulp');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var server = require('gulp-express');
+/*
+  gulpfile.js
+  ===========
+  Rather than manage one giant configuration file responsible
+  for creating multiple tasks, each task has been broken out into
+  its own file in gulp/tasks. Any files in that directory get
+  automatically required below.
 
-gulp.task('server', function () {
+  To add a new task, simply add a new task file that directory.
+  gulp/tasks/default.js specifies the default set of tasks to run
+  when you run `gulp`.
+*/
 
-	// Start the server at the beginning of the task
-	server.run({
-		file: 'server.js'
-	});
+var requireDir = require('require-dir');
 
-	// Restart the server when file changes
-	gulp.watch(['app/**/*.html'], server.notify);
-	gulp.watch(['app/css/**/*.css'], server.notify);
-	gulp.watch(['app/js/**/*.js'], server.notify);
-	gulp.watch(['app/img/**/*'], server.notify);
-});
-
-// gulp.task('default', function(){
-
-// });
-
-// gulp.task('js', function(){
-
-// 	var bundle = browserify('./main.js').bundle();
-
-// 	bundle
-// 		.pipe(source('./main.js'))
-// 		.pipe(gulp.dest('./js'));
-// });
-
-// gulp.task('watch', function(){
-// 	gulp.watch(["./js/**/*.js"], ['js']);
-// });
-
+// Require all tasks in gulp/tasks, including subfolders
+requireDir('./gulp/tasks', { recurse: true });

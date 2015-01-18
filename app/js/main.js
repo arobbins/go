@@ -14,10 +14,7 @@
         $formPasswordLogin = $('.form-password-login'),
         $formPasswordConfirm = $('.form-password-confirm'),
         DB = new Firebase('https://torid-heat-9003.firebaseIO.com'),
-        USERS = DB.child("users"),
-        mod = require('./modules');
-
-    mod.sayHi('Hi!');
+        USERS = DB.child("users");
 
     // Hiding for now
     $chatForm.remove();
@@ -89,7 +86,5 @@
         // Showing Firebase data
         $('body').append('<div style="margin:1em 0;">' + 'Username: ' + user.username + '<br />' + 'Password: ' + user.password + '<br />' + 'Email: ' + user.email + '<br />' + '</div>');
     });
-
-    alert('Made it');
 
 }());
