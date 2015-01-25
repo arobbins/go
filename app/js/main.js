@@ -1,7 +1,6 @@
 (function(){
 
-    var socket = io(),
-        $chatForm = $('.chat'),
+    var $chatForm = $('.chat'),
         $chatInput = $('.chat-input'),
         $chatMessages = $('.chat-messages'),
         $loginForm = $('.form-login'),
@@ -13,22 +12,13 @@
         $formPassword = $('.form-password'),
         $formPasswordLogin = $('.form-password-login'),
         $formPasswordConfirm = $('.form-password-confirm'),
+        socket = io(),
+        Firebase = require('firebase'),
         DB = new Firebase('https://torid-heat-9003.firebaseIO.com'),
         USERS = DB.child("users");
 
-    // Hiding for now
+
     $chatForm.remove();
-
-    // $chatForm.submit(function(e){
-    //     e.preventDefault();
-    //     socket.emit('chat message', $chatInput.val());
-    //     $chatInput.val('');
-    //     return false;
-    // });
-
-    socket.on('chat message', function(data){
-        $chatMessages.append($('<li>').text(data));
-    });
 
     $registerForm.validate({
         debug: true,
@@ -46,19 +36,19 @@
                 password = $formPassword.val(),
                 passwordConfirm = $formPasswordConfirm.val();
 
-            USERS.push({
-              username    : username,
-              password : password,
-              email    : email
+            // USERS.push({
+            //   username    : username,
+            //   password : password,
+            //   email    : email
 
-            }, function(error) {
-              if (error === null) {
-                console.log("User created successfully");
+            // }, function(error) {
+            //   if (error === null) {
+            //     console.log("User created successfully");
 
-              } else {
-                console.log("Error creating user:", error);
-              }
-            });
+            //   } else {
+            //     console.log("Error creating user:", error);
+            //   }
+            // });
         }
     });
 
@@ -69,22 +59,32 @@
             var email = $formEmailLogin.val(),
                 password = $formPasswordLogin.val();
 
-            DB.authWithCustomToken(token, function(error, authData) {
-              if (error) {
-                console.log("Login Failed!", error);
-              } else {
-                console.log("Login Succeeded!", authData);
-              }
-            });
+            // DB.authWithCustomToken(token, function(error, authData) {
+            //   if (error) {
+            //     console.log("Login Failed!", error);
+            //   } else {
+            //     console.log("Login Succeeded!", authData);
+            //   }
+            // });
 
         }
     });
 
-    USERS.on('child_added', function(snapshot){
-        var user = snapshot.val();
+    // USERS.on('child_added', function(snapshot){
+    //     var user = snapshot.val();
 
-        // Showing Firebase data
-        $('body').append('<div style="margin:1em 0;">' + 'Username: ' + user.username + '<br />' + 'Password: ' + user.password + '<br />' + 'Email: ' + user.email + '<br />' + '</div>');
+    //     // Showing Firebase data
+    //     $('body').append('<div style="margin:1em 0;">' + 'Username: ' + user.username + '<br />' + 'Password: ' + user.password + '<br />' + 'Email: ' + user.email + '<br />' + '</div>');
+    // });
+
+    socket.on('entrance', function(data){
+        console.log(data);
     });
+
+
+    socket.on('test', function(data){
+        console.log(data);
+    });
+
 
 }());

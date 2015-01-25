@@ -24,6 +24,10 @@
     "vinyl-transform": "~1.0.0",
     "npm": "~2.2.0",
     "gulp-concat": "~2.4.3",
-    "require-dir": "~0.1.0"
+    "require-dir": "~0.1.0",
+    "gulp-nodemon": "~1.0.5",
+    "express": "~4.11.0",
+    "gulp-livereload": "~3.4.0",
+    "firebase": "~2.1.1"
   }
 }

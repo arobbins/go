@@ -1,7 +1,7 @@
 var config = require('../config');
 var gulp = require('gulp');
 var minifyHTML = require('gulp-minify-html');
-var browsersync = require('browser-sync');
+var livereload = require('gulp-livereload');
 
 // Maps subfolders recursively by default, nice!
 gulp.task('minify-html', function() {
@@ -13,7 +13,5 @@ gulp.task('minify-html', function() {
 	gulp.src(config.html.files)
 		.pipe(minifyHTML(options))
 		.pipe(gulp.dest(config.paths.project))
-		.pipe(browsersync.reload({
-			stream: true
-		}));
+		.pipe(livereload());
 });
