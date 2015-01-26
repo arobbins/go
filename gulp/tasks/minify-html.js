@@ -1,9 +1,10 @@
-var config = require('../config');
+var config = require('../config'); // Relative to this file
 var gulp = require('gulp');
 var minifyHTML = require('gulp-minify-html');
 var livereload = require('gulp-livereload');
 
-// Maps subfolders recursively by default, nice!
+/*  The paths used in the task below will be imported into gulpfile.js
+	 and therefore need to be realtive to that file */
 gulp.task('minify-html', function() {
 	var options = {
 		comments: true,

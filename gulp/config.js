@@ -1,6 +1,6 @@
 module.exports = {
 	paths: {
-		project: './dist/',
+		project: './dist',
 		js: './dist/js',
 	},
 	js: {

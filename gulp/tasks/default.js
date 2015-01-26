@@ -1,3 +1,3 @@
 var gulp = require('gulp');
 
-gulp.task('default', ['server', 'browserify', 'minify-html', 'watch']);
+gulp.task('default', ['browserify', 'minify-html', 'server', 'watch']);

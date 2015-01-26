@@ -12,10 +12,9 @@
         $formPassword = $('.form-password'),
         $formPasswordLogin = $('.form-password-login'),
         $formPasswordConfirm = $('.form-password-confirm'),
+        $formRank = $('.form-rank'),
         socket = io(),
-        Firebase = require('firebase'),
-        DB = new Firebase('https://torid-heat-9003.firebaseIO.com'),
-        USERS = DB.child("users");
+        Data = require('./data');
 
 
     $chatForm.remove();
@@ -34,21 +33,30 @@
             var username = $formUsername.val(),
                 email = $formEmail.val(),
                 password = $formPassword.val(),
-                passwordConfirm = $formPasswordConfirm.val();
+                passwordConfirm = $formPasswordConfirm.val(),
+                rank = $formRank.val();
 
-            // USERS.push({
-            //   username    : username,
-            //   password : password,
-            //   email    : email
+            Data.users.push({
+                password: password,
+                username: username,
+                email: email,
+                loggedIn: false,
+                rank: rank,
+                record: {
+                    wins: 0,
+                    losses: 0
+                },
+                avatar: 'default',
+                gameHistory: {}
 
-            // }, function(error) {
-            //   if (error === null) {
-            //     console.log("User created successfully");
+            }, function(error) {
+              if (error === null) {
+                console.log("User created successfully");
 
-            //   } else {
-            //     console.log("Error creating user:", error);
-            //   }
-            // });
+              } else {
+                console.log("Error creating user:", error);
+              }
+            });
         }
     });
 
