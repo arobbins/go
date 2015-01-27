@@ -4,18 +4,17 @@
         $chatInput = $('.chat-input'),
         $chatMessages = $('.chat-messages'),
         $loginForm = $('.form-login'),
-        $loginFormUsername = $('.form-login .form-username'),
+        $loginFormUsername = $('.form-login-username'),
+        $loginFormPassword = $('.form-login-password'),
+
         $registerForm = $('.form-register'),
         $formUsername = $('.form-username'),
         $formEmail = $('.form-email'),
-        $formEmailLogin = $('.form-email-login'),
         $formPassword = $('.form-password'),
-        $formPasswordLogin = $('.form-password-login'),
         $formPasswordConfirm = $('.form-password-confirm'),
         $formRank = $('.form-rank'),
         socket = io(),
         Data = require('./data');
-
 
     $chatForm.remove();
 
@@ -37,8 +36,8 @@
                 rank = $formRank.val();
 
             Data.users.push({
-                password: password,
                 username: username,
+                password: password,
                 email: email,
                 loggedIn: false,
                 rank: rank,
@@ -49,13 +48,12 @@
                 avatar: 'default',
                 gameHistory: {}
 
-            }, function(error) {
-              if (error === null) {
-                console.log("User created successfully");
-
-              } else {
-                console.log("Error creating user:", error);
-              }
+                }, function(error) {
+                    if (error === null) {
+                        console.log("User created successfully");
+                } else {
+                    console.log("Error creating user:", error);
+                }
             });
         }
     });
@@ -64,8 +62,47 @@
         debug: true,
         submitHandler: function(form) {
 
-            var email = $formEmailLogin.val(),
-                password = $formPasswordLogin.val();
+            var formUsername = $loginFormUsername.val(),
+                formPassword = $loginFormPassword.val();
+
+            Data.users.once('value', function(dataSnapshot) {
+                dataSnapshot.forEach(function(childSnapshot) {
+
+                    var user = childSnapshot.val();
+
+                    if(user.username === formUsername || user.email === formUsername){
+
+                        if(user.password === formPassword){
+
+                            var token = Data.tokenGenerator.createToken({
+                                uid: "1",
+                                username: user.username
+                            });
+
+                            Data.db.authWithCustomToken(token, function(error, authData){
+                                if (error) {
+                                    console.log("Login Failed!", error);
+                                } else {
+                                    console.log("Login Succeeded!", authData);
+                                }
+                            });
+
+                            var me = childSnapshot.ref();
+
+                            me.update({
+                                "loggedIn": true
+                            });
+
+                        } else {
+                            console.log('Password does not match.');
+                        }
+
+                    } else {
+                        console.log('Username or email does not match.');
+                    }
+
+                });
+            });
 
             // DB.authWithCustomToken(token, function(error, authData) {
             //   if (error) {
@@ -85,14 +122,14 @@
     //     $('body').append('<div style="margin:1em 0;">' + 'Username: ' + user.username + '<br />' + 'Password: ' + user.password + '<br />' + 'Email: ' + user.email + '<br />' + '</div>');
     // });
 
-    socket.on('entrance', function(data){
-        console.log(data);
-    });
+    // socket.on('entrance', function(data){
+    //     console.log(data);
+    // });
 
 
-    socket.on('test', function(data){
-        console.log(data);
-    });
+    // socket.on('test', function(data){
+    //     console.log(data);
+    // });
 
 
 }());
