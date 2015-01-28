@@ -18,6 +18,20 @@
 
     $chatForm.remove();
 
+    // Authentication callback
+    // Data.db.onAuth(function(authData) {
+    //     if(authData) {
+    //         console.log("Authenticated with uid:", authData.uid);
+
+    //     } else {
+    //         console.log("Client unauthenticated.")
+    //     }
+    // });
+
+    // Unauthenticates
+    // Data.db.unauth();
+
+
     $registerForm.validate({
         debug: true,
         rules: {
@@ -35,26 +49,58 @@
                 passwordConfirm = $formPasswordConfirm.val(),
                 rank = $formRank.val();
 
-            Data.users.push({
-                username: username,
-                password: password,
-                email: email,
-                loggedIn: false,
-                rank: rank,
-                record: {
-                    wins: 0,
-                    losses: 0
-                },
-                avatar: 'default',
-                gameHistory: {}
+            Data.db.createUser({
+                email    : email,
+                password : password
 
-                }, function(error) {
-                    if (error === null) {
-                        console.log("User created successfully");
+            }, function(error) {
+
+                if (error === null) {
+
+                    Data.users.push({
+                        username: username,
+                        email: email,
+                        loggedIn: false,
+                        rank: rank,
+                        record: {
+                            wins: 0,
+                            losses: 0
+                        },
+                        avatar: 'default',
+                        gameHistory: {}
+
+                        }, function(error) {
+
+                            if (error === null) {
+                                console.log("Non-sensitive new user data also created");
+                            } else {
+                                console.log("Error pushing non-sensitive new user data:", error);
+                            }
+
+                        });
+
                 } else {
                     console.log("Error creating user:", error);
                 }
             });
+
+
+            setTimeout(function(){
+                Data.db.authWithPassword({
+                    email    : email,
+                    password : password
+
+                }, function(error, authData) {
+                    if (error) {
+                        console.log("Login Failed!", error);
+                    } else {
+                        console.log("Authenticated successfully with payload:", authData);
+                    }
+                }, {
+                    remember: 'none'
+                });
+            }, 2000);
+
         }
     });
 
@@ -65,53 +111,43 @@
             var formUsername = $loginFormUsername.val(),
                 formPassword = $loginFormPassword.val();
 
-            Data.users.once('value', function(dataSnapshot) {
-                dataSnapshot.forEach(function(childSnapshot) {
 
-                    var user = childSnapshot.val();
+            Data.db.authWithPassword({
+                email    : formUsername,
+                password : formPassword
 
-                    if(user.username === formUsername || user.email === formUsername){
-
-                        if(user.password === formPassword){
-
-                            var token = Data.tokenGenerator.createToken({
-                                uid: "1",
-                                username: user.username
-                            });
-
-                            Data.db.authWithCustomToken(token, function(error, authData){
-                                if (error) {
-                                    console.log("Login Failed!", error);
-                                } else {
-                                    console.log("Login Succeeded!", authData);
-                                }
-                            });
-
-                            var me = childSnapshot.ref();
-
-                            me.update({
-                                "loggedIn": true
-                            });
-
-                        } else {
-                            console.log('Password does not match.');
-                        }
-
-                    } else {
-                        console.log('Username or email does not match.');
-                    }
-
-                });
+            }, function(error, authData) {
+                if (error) {
+                    console.log("Login Failed!", error);
+                } else {
+                    console.log("Authenticated successfully with payload:", authData);
+                }
+            }, {
+                remember: 'none'
             });
 
-            // DB.authWithCustomToken(token, function(error, authData) {
-            //   if (error) {
-            //     console.log("Login Failed!", error);
-            //   } else {
-            //     console.log("Login Succeeded!", authData);
-            //   }
-            // });
 
+            // Data.users.once('value', function(dataSnapshot) {
+            //     dataSnapshot.forEach(function(childSnapshot) {
+
+            //         var user = childSnapshot.val();
+
+            //         if(user.username === formUsername || user.email === formUsername){
+
+            //             if(user.password === formPassword){
+
+
+
+            //             } else {
+            //                 console.log('Password does not match.');
+            //             }
+
+            //         } else {
+            //             console.log('Username or email does not match.');
+            //         }
+
+            //     });
+            // });
         }
     });
 
